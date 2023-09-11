@@ -29,4 +29,5 @@ jobs:
 
       - name: Sync Files to S3 Bucket
         run: |
-          aws s3 sync . s3://newbucketforgithubaction --delete
+           aws s3 ls
+        #  aws s3 sync . s3://newbucketforgithubaction --delete
