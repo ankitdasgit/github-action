@@ -30,7 +30,7 @@ jobs:
 
 
       - name: Invalidate CloudFront
-        uses: ankitdasgit/github-action-action@v2
+        uses: chetan/invalidate-cloudfront-action@v2
         env:
           DISTRIBUTION: ${{ secrets.DISTRIBUTION_FRONT }}
           PATHS: "/index.html"
