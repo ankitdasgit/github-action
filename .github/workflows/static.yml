@@ -3,7 +3,7 @@ name: Deploy to S3
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   deploy:
@@ -20,13 +20,25 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1  # Change this to your preferred region
 
-      - name: Install AWS CLI
-        run: |
-          curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-          unzip awscliv2.zip
-          sudo ./aws/install
-          aws --version
 
       - name: Sync Files to S3 Bucket
         run: |
-          aws s3 sync . s3://newbucketforgithubaction --delete
+           aws s3 ls
+           
+           aws s3 sync . s3://newbucketforgithubaction --delete
+
+
+
+     # - name: Invalidate CloudFront
+       # run: aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID}} --paths  "/*"
+       # shell: bash
+
+      
+      - name: Invalidate CloudFront
+        run: aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID}} --paths  "/*" 
+        shell: bash
+        
+
+        
+        
+        
